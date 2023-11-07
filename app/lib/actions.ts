@@ -5,7 +5,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 const InvoiceSchema = z.object({
-	id: z.string(),
+	id: z.string().nullish(),
 	customerId: z.string(),
 	amount: z.coerce.number(),
 	status: z.enum(['pending', 'paid']),
