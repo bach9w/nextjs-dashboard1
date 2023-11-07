@@ -13,8 +13,12 @@ const InvoiceSchema = z.object({
 });
 
 const UpdateInvoice = InvoiceSchema.omit({ date: true });
-
 const CreateInvoice = InvoiceSchema.omit({ id: true, date: true });
+
+export async function deleteInvoice(id: string) {
+	await sql`DELETE FROM invoices WHERE id = ${id}`;
+	revalidatePath('/dashboard/invoices');
+}
 
 export async function updateInvoice(id: string, formData: FormData) {
 	const { customerId, amount, status } = UpdateInvoice.parse({
